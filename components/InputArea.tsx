@@ -1,17 +1,26 @@
 import React, { useState } from 'react'
 import type {Block} from '../lib/Block'
 import parseMarkdownBlock from '../lib/parseMarkdownBlock'
-export default function InputArea({pushPrev}: {pushPrev: (arg0: Block) => void}) {
-    const [text, setText] = useState('')
+export default function InputArea({initText, pushPrev}: {initText: string, pushPrev: (arg0: Block) => void}) {
+    console.log(initText)
+    const [text, setText] = useState(initText)
+    console.log(text)
     const [blockType, setBlockType] = useState('')
     const updateText = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newText = e.target.value
         setText(newText)
 
         const mdast = await parseMarkdownBlock(newText).catch(() => {return})
-
+        if (mdast === undefined) {
+            if (/\n\n$/.test(newText)) {
+                // move next block
+                setText('')
+                setBlockType('')
+            }
+            return
+        }
         if (/\n\n$/.test(newText) || (mdast && mdast.type === 'heading' && /\n$/.test(newText))) {
-            pushPrev({markdownText: newText, content: mdast})
+            pushPrev({editing: false, markdownText: newText, content: mdast})
             setText('')
             setBlockType('')
         } else {

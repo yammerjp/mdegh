@@ -1,6 +1,9 @@
+import { Content } from "mdast"
+
 type Block = {
+  editing: boolean;
   markdownText: string;
-  content: Content;
+  content?: Content;
   htmlText?: string;
   component?: any;
 }

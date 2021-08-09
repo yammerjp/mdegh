@@ -5,7 +5,9 @@ import gfm from 'remark-gfm'
 import remark2rehype from 'remark-rehype'
 import rehype2react from 'rehype-react'
 
+/* @ts-ignore*/
 const markdownConverter = remark().use(parse).use(gfm).use(remark2rehype)
+/* @ts-ignore*/
 const markdown2react = remark().use(parse).use(gfm).use(remark2rehype).use(rehype2react, {createElement: React.createElement})
 
 const parseMarkdown = async (markdownText: string) => {
