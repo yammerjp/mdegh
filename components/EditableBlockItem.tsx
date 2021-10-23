@@ -43,9 +43,9 @@ export default function EditableBlockItem({item, updateBlock, moveEditingArea}: 
  
     if (!item.editing) {
         // return <>{item.component}</>
-        return <>E {convert2react(item.markdownText)}</>
+        return <>{convert2react(item.markdownText)}</>
     }
-    return  (<>E 
+    return  (<> 
     <textarea onChange={updateText} value={text} style={{width: '100%'}} ref={textareaElement}/>
     <div>block type: {blockType}</div>
     </>)

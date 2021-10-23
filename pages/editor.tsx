@@ -13,6 +13,7 @@ export default function Home() {
   console.log(blocks)
 
   const incrementBlockIndex = () => {
+    console.log('increment')
     setBlocks(blocks => {
       const beforeIndex = blocks.findIndex(b => b.editing)
       if (beforeIndex === -1) {
@@ -20,6 +21,7 @@ export default function Home() {
       }
       const newIndex = beforeIndex + 1
       if (newIndex >= blocks.length) {
+        blocks[beforeIndex].editing = false
         return [...blocks, {editing: true, markdownText: ''}]
       }
       blocks[beforeIndex].editing = false
@@ -28,6 +30,7 @@ export default function Home() {
     })
   }
   const decrementBlockIndex = () => {
+    console.log('decrement')
     setBlocks(blocks => {
       const beforeIndex = blocks.findIndex(b => b.editing)
       if (beforeIndex === -1) {
